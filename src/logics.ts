@@ -34,8 +34,21 @@ const createProducts = (req: Request, res: Response):Response => {
     return res.status(201).json(responseObject)
 }
 
+const readAllProducts = (req: Request, res: Response):Response => {
+    let accumulator: number = 0
+    const sum = market.map((elem: IProduct, index: number) => {
+        accumulator = elem.price + accumulator
+        return accumulator
+    })
+    const responseObject = {
+        total: Math.max(...sum),
+        marketProducts: market
+    }
+    return res.status(200).json(responseObject)
+}
 
 
 export {
-    createProducts
+    createProducts,
+    readAllProducts
 }
