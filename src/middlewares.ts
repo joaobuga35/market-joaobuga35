@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express"
-import { market } from "./database"
+import { NextFunction, Request, Response, response } from "express"
+import { market,databaseID } from "./database"
 import { IProduct } from "./interfaces"
 
 const ensureVerifyNameProduct = (req: Request, res: Response, next:NextFunction): Response | void => {
@@ -17,6 +17,21 @@ const ensureVerifyNameProduct = (req: Request, res: Response, next:NextFunction)
     return next()
 }
 
+const ensureIDExists = (req: Request, res: Response, next:NextFunction): Response | void => {
+    const id: number = Number(req.params.id)
+
+    const realID = databaseID.find((elem) => elem === id)
+
+    if (!realID) {
+        return res.status(404).json({
+            error: "Product not found"
+        })
+    }
+
+    return next()
+}
+
 export {
-    ensureVerifyNameProduct
+    ensureVerifyNameProduct,
+    ensureIDExists
 }

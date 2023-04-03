@@ -1,6 +1,6 @@
-import { IProduct } from "./interfaces"
+import { IFoodProduct, IProduct } from "./interfaces"
 
-const market: Array<IProduct> = []
+const market: Array<IFoodProduct | IProduct> = []
 const databaseID: Array<number> = []
 
 export {
